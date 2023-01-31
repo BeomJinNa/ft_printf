@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/01/31 10:21:55 by bena             ###   ########.fr       */
+/*   Updated: 2023/01/31 10:31:21 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int			print_int(int num, char conversion);
 int			print_char(char c);
 int			print_str(char *str);
 int			print_ptr(void *ptr);
+int			is_passable_character(const char c);
 
 int	ft_printf(const char *format, ...)
 {
@@ -67,8 +68,7 @@ const char	*print_conversion(const char *ptr, va_list *ap)
 	while (1)
 	{
 		c++;
-		if (*c != 'c' && *c != 's' && *c != 'p' && *c != 'd' && *c != 'i'
-			&& *c != 'u' && *c != 'x' && *c != 'X' && *c != '%')
+		if (is_passable_character(*c))
 			continue ;
 		if (*c == 'd' || *c == 'i' || *c == 'u' || *c == 'x' || *c == 'X')
 			error = print_int(va_arg(*ap, int), *c);
@@ -85,4 +85,12 @@ const char	*print_conversion(const char *ptr, va_list *ap)
 		break ;
 	}
 	return (c + 1);
+}
+
+int	is_passable_character(const char c)
+{
+	if (*c != 'c' && *c != 's' && *c != 'p' && *c != 'd' && *c != 'i'
+		&& *c != 'u' && *c != 'x' && *c != 'X' && *c != '%')
+		return (1);
+	return (0);
 }
