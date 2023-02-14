@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 05:26:20 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 02:11:31 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/19 06:54:33 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int	print_char(char c, const char *ptr)
 	while (is_flag_character(*(++ptr)))
 		set_flags(*ptr, &flags);
 	flags.width = ft_atoi(ptr);
-	while ('0' <= *ptr && *ptr <= '9')
-		ptr++;
 	return (put_result(c, &flags));
 }
 
@@ -36,13 +34,15 @@ static int	put_result(char c, t_flags *flags)
 {
 	int	output;
 
-	output = flags->width;
-	if (flags->left_align == 1)
-		while (--(flags->width) > 0)
+	if (flags->width == 0)
+		flags->width = 1;
+	output = (flags->width)--;
+	if (flags->left_align == 0)
+		while ((flags->width)-- > 0)
 			write(1, " ", 1);
 	write(1, &c, 1);
-	if (flags->left_align == 0)
-		while (--(flags->width) > 0)
+	if (flags->left_align == 1)
+		while ((flags->width)-- > 0)
 			write(1, " ", 1);
 	if (output < 1)
 		return (1);

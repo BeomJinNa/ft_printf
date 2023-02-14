@@ -6,25 +6,26 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:09:07 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 06:44:16 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/19 06:54:13 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "flags.h"
 
 int	is_passable_character(const char c)
 {
-	if (*c != 'c' && *c != 's' && *c != 'p' && *c != 'd' && *c != 'i'
-		&& *c != 'u' && *c != 'x' && *c != 'X' && *c != '%')
+	if (c != 'c' && c != 's' && c != 'p' && c != 'd' && c != 'i'
+		&& c != 'u' && c != 'x' && c != 'X' && c != '%')
 		return (1);
 	return (0);
 }
 
 int	is_flag_character(const char c)
 {
-	if (*c != '-' && *c != '0' && *c != '#' && *c != ' ' && *c != '+')
-		return (1);
-	return (0);
+	if (c != '-' && c != '0' && c != '#' && c != ' ' && c != '+')
+		return (0);
+	return (1);
 }
 
 void	set_flags(const char c, t_flags *flags)
@@ -37,11 +38,11 @@ void	set_flags(const char c, t_flags *flags)
 	if (c == '0')
 		flags->zero_padding = F_ZERO_PADDING;
 	if (c == '#')
-		flags->base_visable = 1;
+		flags->base_visible = 1;
 	if (c == ' ')
-		flags->sign = SIGN_SPACE;
+		flags->sign = F_SIGN_SPACE;
 	if (c == '+')
-		flags->sign = SIGN_PLUS;
+		flags->sign = F_SIGN_PLUS;
 }
 
 int	is_there_sign(long long num, t_flags *flags)

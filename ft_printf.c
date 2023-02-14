@@ -6,21 +6,21 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 07:26:35 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 08:06:29 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
 
-static void			flush_buffer(char *buffer, char **ptr_buf);
-static const char	*print_conversion(const char *ptr, va_list *ap);
-int					print_int(int num, const char *ptr, char conversion);
-int					print_uint(unsigned int num, const char *ptr);
-int					print_char(char c, const char *ptr);
-int					print_str(char *str, const char *ptr);
-int					print_ptr(void *p, const char *ptr);
-int					is_passable_character(const char c);
+static int	flush_buffer(char *buffer, char **ptr_buf);
+static int	print_conversion(const char **ptr, va_list *ap);
+int			print_int(int num, const char *ptr, char conversion);
+int			print_uint(unsigned int num, const char *ptr);
+int			print_char(char c, const char *ptr);
+int			print_str(char *str, const char *ptr);
+//int		print_ptr(void *p, const char *ptr);
+int			is_passable_character(const char c);
 
 int	ft_printf(const char *format, ...)
 {
@@ -39,7 +39,7 @@ int	ft_printf(const char *format, ...)
 		if (*ptr == '\n' || *ptr == '%' || ptr_buf - buffer == 4095)
 			output += flush_buffer(buffer, &ptr_buf);
 		if (*ptr == '%')
-			output += print_conversion(ptr, &ap);
+			output += print_conversion(&ptr, &ap);
 		if (*ptr)
 			*ptr_buf++ = *ptr++;
 	}
@@ -60,7 +60,7 @@ static int	flush_buffer(char *buffer, char **ptr_buf)
 	return (output);
 }
 
-static const char	*print_conversion(const char **ptr, va_list *ap)
+static int	print_conversion(const char **ptr, va_list *ap)
 {
 	const char	*c;
 	int			conversion_length;
@@ -75,8 +75,8 @@ static const char	*print_conversion(const char **ptr, va_list *ap)
 		conversion_length = print_char(va_arg(*ap, int), *ptr);
 	if (*c == 's')
 		conversion_length = print_str(va_arg(*ap, char *), *ptr);
-	if (*c == 'p')
-		conversion_length = print_ptr(va_arg(*ap, void *), *ptr);
+//	if (*c == 'p')
+		//conversion_length = print_ptr(va_arg(*ap, void *), *ptr);
 	if (*c == '%')
 		write (1, c, 1);
 	*ptr = c + 1;

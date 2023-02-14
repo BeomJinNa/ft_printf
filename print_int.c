@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:14:30 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 07:24:23 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 07:42:51 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	print_int(int num, const char *ptr, char conversion)
 	if (conversion == 'x' || conversion == 'X')
 		return (print_hex(num, &flags, conversion));
 	if (conversion == 'u')
-		return (print_uint((unsigned int)num));
+		return (print_uint((unsigned int)num, &flags));
 	return (0);
 }

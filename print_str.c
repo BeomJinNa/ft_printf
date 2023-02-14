@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 02:19:17 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 02:15:19 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/19 07:09:13 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	print_str(char *str, const char *ptr)
 	while ('0' <= *ptr && *ptr <= '9')
 		ptr++;
 	if (*ptr == '.')
-		precision = ft_atoi(++ptr);
-	return (put_result(c, &flags));
+		flags.precision = ft_atoi(++ptr);
+	return (put_result(str, &flags));
 }
 
 static int	put_result(char *s, t_flags *flags)
@@ -45,9 +45,9 @@ static int	put_result(char *s, t_flags *flags)
 
 	flags->precision = min_len(ft_strlen(s), flags->precision);
 	space_length = flags->width - flags->precision;
-	if (space_length < 0)
+	if (flags->width < flags->precision)
 		space_length = 0;
-	output = space_length + precision;
+	output = space_length + flags->precision;
 	if (flags->left_align == 1)
 		while (space_length-- > 0)
 			write(1, " ", 1);
