@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:09:07 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 03:25:47 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 06:44:16 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	set_flags(const char c, t_flags *flags)
 		flags->sign = SIGN_PLUS;
 }
 
-int	is_there_sign(int num, t_flags *flags)
+int	is_there_sign(long long num, t_flags *flags)
 {
+	if (flags->base_visible == 1 && num == 0)
+		return (0);
 	if (flags->base_visible == 1)
 		return (2);
 	if (flags->sign == F_NO_SIGN && num >= 0)

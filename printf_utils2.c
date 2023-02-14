@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 04:59:10 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 07:21:16 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ size_t	digit_of_number(long long num, int base)
 	{
 		dummy *= base;
 		digit++;
-		if (dummy > 2147483647)
+		if (dummy < 0)
 			return (0);
 	}
 	return (digit);
 }
 
-void	set_lengths(int num, t_length *length, t_flags *flags, int base)
+void	set_lengths(long long num, t_length *length, t_flags *flags, int base)
 {
-	length->value = digit_of_number((long long)num, base);
+	length->value = digit_of_number(num, base);
 	if (num == 0 && flags->zero_padding == F_ZERO_PRECISION)
 		length->value = 0;
 	length->precision_padding = 0;

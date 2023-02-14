@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 02:21:15 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 07:26:35 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,8 @@ static const char	*print_conversion(const char **ptr, va_list *ap)
 	while (is_passable_character(*(++c)))
 		;
 	conversion_length = 1;
-	if (*c == 'i' || *c == 'u' || *c == 'x' || *c == 'X')
+	if (*c == 'i' || *c == 'd' || *c == 'x' || *c == 'X' || *c == 'u')
 		conversion_length = print_int(va_arg(*ap, int), *ptr, *c);
-	if (*c == 'd')
-		conversion_length = print_uint(va_arg(*ap, unsigned int), *ptr);
 	if (*c == 'c')
 		conversion_length = print_char(va_arg(*ap, int), *ptr);
 	if (*c == 's')

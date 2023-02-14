@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 01:14:49 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 05:47:20 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 07:11:32 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,39 @@
 #include "length.h"
 
 void		ft_putnbr_fd(int n, int fd);
-void		set_lengths(int num, t_length *length, t_flags *flags, int base);
-static void	put_sign(int num, t_flags *flags);
+void		set_lengths(long long num, t_length *l, t_flags *f, int base);
+static void	put_sign(char conversion);
 static void	put_paddings(t_length *length, t_flags *flags);
 static void	put_precision(int count);
-static void	put_nbr(int num);
+static void	put_hex(unsigned int num, char conversion);
+void		puthex_u(unsigned int num);
+void		puthex_l(unsigned int num);
 
-int	print_dec(int num, t_flags *flags)
+int	print_hex(unsigned int num, t_flags *flags, char conversion)
 {
 	t_length	length;
 
-	set_lengths(num, &length, flags, 10);
+	set_lengths((long long)num, &length, flags, 16);
 	if (flags->left_align == 0 && flags->zero_padding != F_ZERO_PADDING)
 		put_paddings(&length, flags);
-	put_sign(num, flags);
+	if (flags->base_visible == 1 && num != 0)
+		put_sign(conversion);
 	if (flags->left_align == 0 && flags->zero_padding == F_ZERO_PADDING)
 		put_paddings(&length, flags);
 	put_precision(length.precision_padding);
 	if (length.value != 0)
-		put_nbr(num);
+		put_hex(num, conversion);
 	if (flags->left_align == 1)
 		put_paddings(&length, flags);
 	return (length.total);
 }
 
-static void	put_sign(int num, t_flags *flags)
+static void	put_sign(char conversion)
 {
-	if (num < 0)
-		write(1, "-", 1);
-	if (flags->sign == F_SIGN_SPACE)
-		write(1, " ", 1);
-	if (flags->sign == F_SIGN_PLUS)
-		write(1, "+", 1);
+	if (conversion == 'x')
+		write(1, "0x", 2);
+	if (conversion == 'X')
+		write(1, "0X", 2);
 }
 
 static void	put_paddings(t_length *length, t_flags *flags)
@@ -71,15 +72,10 @@ static void	put_precision(int count)
 		write(1, "0", 1);
 }
 
-static void	put_nbr(int num)
+static void	put_hex(unsigned int num, char conversion)
 {
-	int	output;
-
-	output = 0;
-	if (num == -2147483648)
-	{
-		write(1, "2147483648", 10);
-		return ;
-	}
-	ft_putnbr_fd(num, 1);
+	if (conversion == 'x')
+		puthex_l(num);
+	if (conversion == 'X')
+		puthex_u(num);
 }
