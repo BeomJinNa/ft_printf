@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_str.c                                        :+:      :+:    :+:   */
+/*   print_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/08 02:19:17 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 02:15:19 by bena             ###   ########.fr       */
+/*   Created: 2023/02/14 23:14:30 by bena              #+#    #+#             */
+/*   Updated: 2023/02/15 01:25:09 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,43 +17,21 @@ void		*ft_memset(void *b, int c, size_t len);
 int			ft_atoi(const char *str);
 void		set_flags(const char c, t_flags *flags);
 int			is_flag_character(const char c);
-static int	put_result(char *s, t_flags *flags);
-size_t		ft_strlen(const char *s);
-size_t		min_len(size_t a, size_t b);
-void		ft_putstrn(char *s, size_t buffer);
 
-int	print_str(char *str, const char *ptr)
+int	print_int(int num, const char *ptr, char conversion)
 {
 	t_flags	flags;
 
 	ft_memset(&flags, 0, sizeof(t_flags));
-	flags.precision = -1;
 	while (is_flag_character(*(++ptr)))
 		set_flags(*ptr, &flags);
 	flags.width = ft_atoi(ptr);
 	while ('0' <= *ptr && *ptr <= '9')
 		ptr++;
 	if (*ptr == '.')
-		precision = ft_atoi(++ptr);
+	{
+		flags.precision = ft_atoi(++ptr);
+		flags.zero_padding = F_ZERO_PRECISION;
+	}
 	return (put_result(c, &flags));
-}
-
-static int	put_result(char *s, t_flags *flags)
-{
-	size_t	space_length;
-	int		output;
-
-	flags->precision = min_len(ft_strlen(s), flags->precision);
-	space_length = flags->width - flags->precision;
-	if (space_length < 0)
-		space_length = 0;
-	output = space_length + precision;
-	if (flags->left_align == 1)
-		while (space_length-- > 0)
-			write(1, " ", 1);
-	ft_putstrn(s, flags->precision);
-	if (flags->left_align == 0)
-		while (space_length-- > 0)
-			write(1, " ", 1);
-	return (output);
 }

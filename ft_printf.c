@@ -6,14 +6,12 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/02/02 16:13:46 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 02:03:00 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
-
-#define ERROR 0
 
 static void			flush_buffer(char *buffer, char **ptr_buf);
 static const char	*print_conversion(const char *ptr, va_list *ap);
@@ -29,60 +27,57 @@ int	ft_printf(const char *format, ...)
 	char		buffer[4096];
 	const char	*ptr;
 	char		*ptr_buf;
+	int			output;
 
 	va_start(ap, format);
 	ptr_buf = buffer;
 	ptr = format;
+	output = 0;
 	while (*ptr)
 	{
 		if (*ptr == '\n' || *ptr == '%' || ptr_buf - buffer == 4095)
-			flush_buffer(buffer, &ptr_buf);
+			output += flush_buffer(buffer, &ptr_buf);
 		if (*ptr == '%')
-			ptr = print_conversion(ptr, &ap);
-		if (ptr == ERROR)
-			break ;
+			output += print_conversion(ptr, &ap);
 		if (*ptr)
 			*ptr_buf++ = *ptr++;
 	}
 	va_end(ap);
-	if (ptr == ERROR)
-		return (-1);
-	return (ptr - format);
+	output += flush_buffer(buffer, &ptr_buf);
+	return (output);
 }
 
-static void	flush_buffer(char *buffer, char **ptr_buf)
+static int	flush_buffer(char *buffer, char **ptr_buf)
 {
+	int	output;
+
 	if (buffer >= *ptr_buf)
-		return ;
+		return (0);
 	write(1, buffer, *ptr_buf - buffer);
+	output = *ptr_buf - buffer;
 	*ptr_buf = buffer;
+	return (output);
 }
 
-static const char	*print_conversion(const char *ptr, va_list *ap)
+static const char	*print_conversion(const char **ptr, va_list *ap)
 {
-	int			error;
 	const char	*c;
+	int			conversion_length;
 
-	c = ptr;
-	error = 0;
-	while (1)
-	{
-		c++;
-		if (is_passable_character(*c))
-			continue ;
-		if (*c == 'd' || *c == 'i' || *c == 'u' || *c == 'x' || *c == 'X')
-			error = print_int(va_arg(*ap, int), ptr, *c);
-		if (*c == 'c')
-			error = print_char(va_arg(*ap, int), ptr);
-		if (*c == 's')
-			error = print_str(va_arg(*ap, char *), ptr);
-		if (*c == 'p')
-			error = print_ptr(va_arg(*ap, void *), ptr);
-		if (*c == '%')
-			write (1, c, 1);
-		if (error)
-			return (ERROR);
-		break ;
-	}
-	return (c + 1);
+	c = *ptr;
+	while (is_passable_character(*(++c)))
+		;
+	conversion_length = 1;
+	if (*c == 'd' || *c == 'i' || *c == 'u' || *c == 'x' || *c == 'X')
+		conversion_length = print_int(va_arg(*ap, int), *ptr, *c);
+	if (*c == 'c')
+		conversion_length = print_char(va_arg(*ap, int), *ptr);
+	if (*c == 's')
+		conversion_length = print_str(va_arg(*ap, char *), *ptr);
+	if (*c == 'p')
+		conversion_length = print_ptr(va_arg(*ap, void *), *ptr);
+	if (*c == '%')
+		write (1, c, 1);
+	*ptr = c + 1;
+	return (conversion_length);
 }

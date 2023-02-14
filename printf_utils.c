@@ -6,14 +6,12 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:09:07 by bena              #+#    #+#             */
-/*   Updated: 2023/02/13 06:19:43 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 01:06:37 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-
-#define SIGN_SPACE 1
-#define SIGN_PLUS 2
+#include "flags.h"
 
 int	is_passable_character(const char c)
 {
@@ -35,10 +33,10 @@ void	set_flags(const char c, t_flags *flags)
 	if (c == '-')
 	{
 		flags->left_align = 1;
-		flags->zero_padding = 0;
+		flags->zero_padding = F_NO_PADDING;
 	}
 	if (c == '0')
-		flags->zero_padding = 1;
+		flags->zero_padding = F_ZERO_PADDING;
 	if (c == '#')
 		flags->base_visable = 1;
 	if (c == ' ')
@@ -50,8 +48,8 @@ void	set_flags(const char c, t_flags *flags)
 size_t	min_len(size_t a, size_t b)
 {
 	if (a >= b)
-		return (a);
-	return (b);
+		return (b);
+	return (a);
 }
 
 void	ft_putstrn(char *s, size_t buffer)
