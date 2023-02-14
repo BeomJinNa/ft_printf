@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:05:16 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 03:01:55 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 03:53:55 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ typedef struct s_length{
 	size_t	total;
 	size_t	value;
 	size_t	number;
+	size_t	precision_padding;
 }	t_length;
 #endif

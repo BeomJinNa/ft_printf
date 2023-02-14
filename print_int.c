@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:14:30 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 02:24:00 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 05:23:27 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		*ft_memset(void *b, int c, size_t len);
 int			ft_atoi(const char *str);
 void		set_flags(const char c, t_flags *flags);
 int			is_flag_character(const char c);
+int			print_dec(int num, t_flags *flags);
+int			print_hex(int num, t_flags *flags, char conversion);
 
 int	print_int(int num, const char *ptr, char conversion)
 {
@@ -33,6 +35,9 @@ int	print_int(int num, const char *ptr, char conversion)
 		flags.precision = ft_atoi(++ptr);
 		flags.zero_padding = F_ZERO_PRECISION;
 	}
-//	return (put_result(c, &flags));
-//	%d, %i, %u, %x, %X
+	if (conversion == 'd' || conversion == 'i')
+		return (print_dec(num, &flags));
+	if (conversion == 'x' || conversion == 'X')
+		return (print_hex(num, &flags, conversion));
+	return (0);
 }

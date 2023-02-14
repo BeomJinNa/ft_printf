@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 03:42:09 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 04:59:10 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ size_t	digit_of_number(long long num, int base)
 void	set_lengths(int num, t_length *length, t_flags *flags, int base)
 {
 	length->value = digit_of_number((long long)num, base);
+	if (num == 0 && flags->zero_padding == F_ZERO_PRECISION)
+		length->value = 0;
+	length->precision_padding = 0;
+	if (flags->precision > length->value)
+		length->precision_padding = flags->precision - length->value;
 	length->number = max_len(flags->precision, length->value);
 	length->number += is_there_sign(num, flags);
 	length->total = max_len(flags->width, length->number);
