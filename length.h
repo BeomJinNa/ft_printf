@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_dec.c                                        :+:      :+:    :+:   */
+/*   length.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 01:14:49 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 03:43:21 by bena             ###   ########.fr       */
+/*   Created: 2023/02/02 16:05:16 by bena              #+#    #+#             */
+/*   Updated: 2023/02/15 03:01:55 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "flags.h"
-#include "length.h"
+#ifndef LENGTH_H
+# define LENGTH_H
 
-void	ft_putnbr_fd(int n, int fd);
-void	set_lengths(int num, t_length *length, t_flags *flags, int base);
-
-int	print_dec(int num, t_flags *flags)
-{
-	t_length	length;
-
-	if (flags->precision == 0 && num == 0)
-		return (0);
-	set_lengths(num, &length, flags, 10);
-}
-
-static 
+typedef struct s_length{
+	size_t	space;
+	size_t	total;
+	size_t	value;
+	size_t	number;
+}	t_length;
+#endif

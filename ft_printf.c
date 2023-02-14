@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 02:03:00 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 02:21:15 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static void			flush_buffer(char *buffer, char **ptr_buf);
 static const char	*print_conversion(const char *ptr, va_list *ap);
 int					print_int(int num, const char *ptr, char conversion);
+int					print_uint(unsigned int num, const char *ptr);
 int					print_char(char c, const char *ptr);
 int					print_str(char *str, const char *ptr);
 int					print_ptr(void *p, const char *ptr);
@@ -68,8 +69,10 @@ static const char	*print_conversion(const char **ptr, va_list *ap)
 	while (is_passable_character(*(++c)))
 		;
 	conversion_length = 1;
-	if (*c == 'd' || *c == 'i' || *c == 'u' || *c == 'x' || *c == 'X')
+	if (*c == 'i' || *c == 'u' || *c == 'x' || *c == 'X')
 		conversion_length = print_int(va_arg(*ap, int), *ptr, *c);
+	if (*c == 'd')
+		conversion_length = print_uint(va_arg(*ap, unsigned int), *ptr);
 	if (*c == 'c')
 		conversion_length = print_char(va_arg(*ap, int), *ptr);
 	if (*c == 's')

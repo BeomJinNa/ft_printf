@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:14:30 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 01:25:09 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 02:24:00 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int	print_int(int num, const char *ptr, char conversion)
 		flags.precision = ft_atoi(++ptr);
 		flags.zero_padding = F_ZERO_PRECISION;
 	}
-	return (put_result(c, &flags));
+//	return (put_result(c, &flags));
+//	%d, %i, %u, %x, %X
 }

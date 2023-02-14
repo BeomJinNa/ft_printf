@@ -6,11 +6,10 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:09:07 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 01:06:37 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/15 03:25:47 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "flags.h"
 
 int	is_passable_character(const char c)
@@ -45,19 +44,11 @@ void	set_flags(const char c, t_flags *flags)
 		flags->sign = SIGN_PLUS;
 }
 
-size_t	min_len(size_t a, size_t b)
+int	is_there_sign(int num, t_flags *flags)
 {
-	if (a >= b)
-		return (b);
-	return (a);
-}
-
-void	ft_putstrn(char *s, size_t buffer)
-{
-	char	*ptr;
-
-	ptr = s;
-	while (*ptr && ptr - s < buffer)
-		ptr++;
-	write(1, s, ptr - s);
+	if (flags->base_visible == 1)
+		return (2);
+	if (flags->sign == F_NO_SIGN && num >= 0)
+		return (0);
+	return (1);
 }
