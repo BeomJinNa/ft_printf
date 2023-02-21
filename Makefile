@@ -3,55 +3,49 @@ AR		= ar
 ARFLAGS	= crs
 CFLAGS	= -Wall -Wextra -Werror
 
-NAME = 		libft.a
+NAME = 		libftprintf.a
 
-SRCS =		ft_atoi.c \
-			ft_bzero.c \
-			ft_calloc.c \
-			ft_isalnum.c \
-			ft_isalpha.c \
-			ft_isascii.c \
-			ft_isdigit.c \
-			ft_isprint.c \
-			ft_itoa.c \
-			ft_memchr.c \
-			ft_memcmp.c \
-			ft_memcpy.c \
-			ft_memmove.c \
-			ft_memset.c \
-			ft_putchar_fd.c \
-			ft_putendl_fd.c \
-			ft_putnbr_fd.c \
-			ft_putstr_fd.c \
-			ft_split.c \
-			ft_strchr.c \
-			ft_strdup.c \
-			ft_striteri.c \
-			ft_strjoin.c \
-			ft_strlcat.c \
-			ft_strlcpy.c \
-			ft_strlen.c \
-			ft_strmapi.c \
-			ft_strncmp.c \
-			ft_strnstr.c \
-			ft_strrchr.c \
-			ft_strtrim.c \
-			ft_substr.c \
-			ft_tolower.c \
-			ft_toupper.c
+SRCS =		srcs/ft_atoi.c \
+			srcs/ft_memset.c \
+			srcs/ft_printf.c \
+			srcs/ft_putnbr_fd.c \
+			srcs/ft_strlen.c \
+			srcs/print_char.c \
+			srcs/print_dec.c \
+			srcs/print_hex.c \
+			srcs/print_int.c \
+			srcs/print_ptr.c \
+			srcs/print_str.c \
+			srcs/print_uint.c \
+			srcs/printf_utils.c \
+			srcs/printf_utils2.c \
+			srcs/printf_utils3.c \
+			srcs/putaddress.c \
+			srcs/puthex.c \
+			srcs/putuint.c
 
-B_SRCS = 	ft_lstadd_back_bonus.c \
-			ft_lstadd_front_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstmap_bonus.c \
-			ft_lstnew_bonus.c \
-			ft_lstsize_bonus.c
+B_SRCS =	bonus/ft_atoi_bonus.c \
+			bonus/ft_memset_bonus.c \
+			bonus/ft_printf_bonus.c \
+			bonus/ft_putnbr_fd_bonus.c \
+			bonus/ft_strlen_bonus.c \
+			bonus/print_char_bonus.c \
+			bonus/print_dec_bonus.c \
+			bonus/print_hex_bonus.c \
+			bonus/print_int_bonus.c \
+			bonus/print_ptr_bonus.c \
+			bonus/print_str_bonus.c \
+			bonus/print_uint_bonus.c \
+			bonus/printf_utils_bonus.c \
+			bonus/printf_utils2_bonus.c \
+			bonus/printf_utils3_bonus.c \
+			bonus/putaddress_bonus.c \
+			bonus/puthex_bonus.c \
+			bonus/putuint_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 B_OBJS = $(B_SRCS:.c=.o)
+
 ifdef BONUS
 	TARGET_OBJS = $(B_OBJS)
 else

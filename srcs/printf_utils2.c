@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 07:21:16 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 05:33:09 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_putstrn(char *s, size_t buffer)
 	char	*ptr;
 
 	ptr = s;
-	while (*ptr && ptr - s < buffer)
+	while (*ptr && (size_t)(ptr - s) < buffer)
 		ptr++;
 	write(1, s, ptr - s);
 }
