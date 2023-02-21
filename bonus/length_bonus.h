@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   length.h                                           :+:      :+:    :+:   */
+/*   length_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 16:05:16 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 03:53:55 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 06:09:02 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LENGTH_H
-# define LENGTH_H
+#ifndef LENGTH_BONUS_H
+# define LENGTH_BONUS_H
 
 typedef struct s_length{
 	size_t	space;
