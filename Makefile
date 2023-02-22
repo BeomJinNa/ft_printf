@@ -75,5 +75,5 @@ re :
 	make all
 
 .PHONY: bonus
-bonus : all
-	#make BONUS=0 all
+bonus :
+	make BONUS=0 all
