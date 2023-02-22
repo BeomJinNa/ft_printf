@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 02:19:17 by bena              #+#    #+#             */
-/*   Updated: 2023/02/19 07:09:13 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:16:06 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void		ft_putstrn(char *s, size_t buffer);
 
 int	print_str(char *str, const char *ptr)
 {
-	t_flags	flags;
+	t_flags		flags;
+	char *const	null_string = "(null)";
 
+	if (str == NULL)
+		str = null_string;
 	ft_memset(&flags, 0, sizeof(t_flags));
 	flags.precision = -1;
 	while (is_flag_character(*(++ptr)))
@@ -48,11 +51,11 @@ static int	put_result(char *s, t_flags *flags)
 	if (flags->width < flags->precision)
 		space_length = 0;
 	output = space_length + flags->precision;
-	if (flags->left_align == 1)
+	if (flags->left_align == 0)
 		while (space_length-- > 0)
 			write(1, " ", 1);
 	ft_putstrn(s, flags->precision);
-	if (flags->left_align == 0)
+	if (flags->left_align == 1)
 		while (space_length-- > 0)
 			write(1, " ", 1);
 	return (output);

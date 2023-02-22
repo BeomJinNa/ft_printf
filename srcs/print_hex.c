@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 01:14:49 by bena              #+#    #+#             */
-/*   Updated: 2023/02/15 07:11:32 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:39:36 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		ft_putnbr_fd(int n, int fd);
 void		set_lengths(long long num, t_length *l, t_flags *f, int base);
 static void	put_sign(char conversion);
 static void	put_paddings(t_length *length, t_flags *flags);
-static void	put_precision(int count);
+static void	put_precision(size_t count);
 static void	put_hex(unsigned int num, char conversion);
 void		puthex_u(unsigned int num);
 void		puthex_l(unsigned int num);
@@ -60,13 +60,14 @@ static void	put_paddings(t_length *length, t_flags *flags)
 	if (flags->zero_padding == F_ZERO_PADDING)
 		while (count-- > 0)
 			write(1, "0", 1);
-	while (count-- > 0)
-		write(1, " ", 1);
+	if (flags->zero_padding != F_ZERO_PADDING)
+		while (count-- > 0)
+			write(1, " ", 1);
 }
 
-static void	put_precision(int count)
+static void	put_precision(size_t count)
 {
-	if (count < 1)
+	if (count == 0)
 		return ;
 	while (count-- > 0)
 		write(1, "0", 1);

@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_utils3_bonus.c                              :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 03:35:06 by bena             ###   ########.fr       */
+/*   Created: 2023/02/22 08:49:45 by bena              #+#    #+#             */
+/*   Updated: 2023/02/22 08:50:10 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-size_t	digit_of_address(unsigned long long num)
-{
-	unsigned long long	dummy;
-	size_t				digit;
-
-	dummy = 16;
-	digit = 1;
-	while (dummy - 1 < num)
-	{
-		dummy *= 16;
-		digit++;
-	}
-	return (digit);
-}
+int	ft_printf(const char *format, ...);
+#endif

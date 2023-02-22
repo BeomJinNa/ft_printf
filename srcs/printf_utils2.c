@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 05:33:09 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 11:20:41 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "flags.h"
 #include "length.h"
 
-int	is_there_sign(int num, t_flags *flags);
+int	is_there_sign(long long num, t_flags *flags);
 
 size_t	min_len(size_t a, size_t b)
 {

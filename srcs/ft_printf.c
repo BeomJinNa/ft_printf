@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 03:33:36 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:28:16 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_printf(const char *format, ...)
 			output += flush_buffer(buffer, &ptr_buf);
 		if (*ptr == '%')
 			output += print_conversion(&ptr, &ap);
-		if (*ptr)
+		if (*ptr && *ptr != '%')
 			*ptr_buf++ = *ptr++;
 	}
 	va_end(ap);
@@ -68,7 +68,6 @@ static int	print_conversion(const char **ptr, va_list *ap)
 	c = *ptr;
 	while (is_passable_character(*(++c)))
 		;
-	conversion_length = 1;
 	if (*c == 'i' || *c == 'd' || *c == 'x' || *c == 'X' || *c == 'u')
 		conversion_length = print_int(va_arg(*ap, int), *ptr, *c);
 	if (*c == 'c')
@@ -78,7 +77,7 @@ static int	print_conversion(const char **ptr, va_list *ap)
 	if (*c == 'p')
 		conversion_length = print_ptr(va_arg(*ap, void *), *ptr);
 	if (*c == '%')
-		write (1, c, 1);
+		conversion_length = print_char('%', *ptr);
 	*ptr = c + 1;
 	return (conversion_length);
 }

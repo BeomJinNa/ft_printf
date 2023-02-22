@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:14:30 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 03:34:12 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/22 12:07:17 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ static int	print_address(void *address, t_flags *flags)
 	if (flags->left_align == 1)
 		while (space-- > 0)
 			write(1, " ", 1);
-	return (length);
+	return (max_len(length, flags->width));
 }
