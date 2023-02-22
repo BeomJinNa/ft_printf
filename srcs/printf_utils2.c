@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 11:20:41 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:16:22 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "flags.h"
 #include "length.h"
 
-int	is_there_sign(long long num, t_flags *flags);
+int			is_there_sign(long long num, t_flags *flags);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 size_t	min_len(size_t a, size_t b)
 {
@@ -37,7 +38,7 @@ void	ft_putstrn(char *s, size_t buffer)
 	ptr = s;
 	while (*ptr && (size_t)(ptr - s) < buffer)
 		ptr++;
-	write(1, s, ptr - s);
+	ft_write_printf(s, ptr - s);
 }
 
 size_t	digit_of_number(long long num, int base)

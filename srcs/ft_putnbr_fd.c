@@ -6,15 +6,16 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:04:46 by bena              #+#    #+#             */
-/*   Updated: 2022/11/25 16:20:07 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:14:52 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-static void	ft_write_nbr(char *buffer, size_t buffer_len, int fd);
+static void	ft_write_nbr(char *buffer, size_t buffer_len);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_putnbr(int n)
 {
 	char		buffer[11];
 	long long	num;
@@ -35,10 +36,10 @@ void	ft_putnbr_fd(int n, int fd)
 		*ptr++ = num % 10 + '0';
 		num /= 10;
 	}
-	ft_write_nbr(buffer, ptr - buffer, fd);
+	ft_write_nbr(buffer, ptr - buffer);
 }
 
-static void	ft_write_nbr(char *buffer, size_t buffer_len, int fd)
+static void	ft_write_nbr(char *buffer, size_t buffer_len)
 {
 	char	str[11];
 	char	*ptr;
@@ -49,5 +50,5 @@ static void	ft_write_nbr(char *buffer, size_t buffer_len, int fd)
 	buffer += buffer_len;
 	while (--buffer_len)
 		*ptr++ = *--buffer;
-	write(fd, str, ptr - str);
+	ft_write_printf(str, ptr - str);
 }

@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 00:41:31 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 12:28:16 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 08:17:24 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@ int			print_char(char c, const char *ptr);
 int			print_str(char *str, const char *ptr);
 int			print_ptr(void *address, const char *ptr);
 int			is_passable_character(const char c);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 int	ft_printf(const char *format, ...)
 {
 	va_list		ap;
-	char		buffer[4096];
+	char		buffer[1024];
 	const char	*ptr;
 	char		*ptr_buf;
 	int			output;
@@ -34,17 +35,19 @@ int	ft_printf(const char *format, ...)
 	ptr_buf = buffer;
 	ptr = format;
 	output = 0;
-	while (*ptr)
+	while (ptr != NULL && *ptr)
 	{
-		if (*ptr == '\n' || *ptr == '%' || ptr_buf - buffer == 4095)
+		if (*ptr == '\n' || *ptr == '%' || ptr_buf - buffer == 1024)
 			output += flush_buffer(buffer, &ptr_buf);
 		if (*ptr == '%')
 			output += print_conversion(&ptr, &ap);
-		if (*ptr && *ptr != '%')
+		if (ptr != NULL && *ptr && *ptr != '%')
 			*ptr_buf++ = *ptr++;
 	}
 	va_end(ap);
 	output += flush_buffer(buffer, &ptr_buf);
+	if (ptr == NULL || ft_write_printf(NULL, 0) == -1)
+		return (-1);
 	return (output);
 }
 
@@ -54,7 +57,7 @@ static int	flush_buffer(char *buffer, char **ptr_buf)
 
 	if (buffer >= *ptr_buf)
 		return (0);
-	write(1, buffer, *ptr_buf - buffer);
+	ft_write_printf(buffer, *ptr_buf - buffer);
 	output = *ptr_buf - buffer;
 	*ptr_buf = buffer;
 	return (output);
@@ -78,6 +81,11 @@ static int	print_conversion(const char **ptr, va_list *ap)
 		conversion_length = print_ptr(va_arg(*ap, void *), *ptr);
 	if (*c == '%')
 		conversion_length = print_char('%', *ptr);
+	if (*c == '\0')
+	{
+		*ptr = NULL;
+		return (0);
+	}
 	*ptr = c + 1;
 	return (conversion_length);
 }

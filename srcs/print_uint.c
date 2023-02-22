@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 01:14:49 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 12:39:54 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:16:12 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include "flags.h"
 #include "length.h"
 
-void		ft_putnbr_fd(int n, int fd);
+void		ft_putnbr(int n);
 void		set_lengths(long long num, t_length *l, t_flags *f, int base);
 static void	put_paddings(t_length *length, t_flags *flags);
 static void	put_precision(size_t count);
 void		put_uint(unsigned int num);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 int	print_uint(unsigned int num, t_flags *flags)
 {
@@ -44,10 +45,10 @@ static void	put_paddings(t_length *length, t_flags *flags)
 	count = length->space;
 	if (flags->zero_padding == F_ZERO_PADDING)
 		while (count-- > 0)
-			write(1, "0", 1);
+			ft_write_printf("0", 1);
 	if (flags->zero_padding != F_ZERO_PADDING)
 		while (count-- > 0)
-			write(1, " ", 1);
+			ft_write_printf(" ", 1);
 }
 
 static void	put_precision(size_t count)
@@ -55,5 +56,5 @@ static void	put_precision(size_t count)
 	if (count == 0)
 		return ;
 	while (count-- > 0)
-		write(1, "0", 1);
+		ft_write_printf("0", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 02:19:17 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 12:16:06 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:15:58 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	put_result(char *s, t_flags *flags);
 size_t		ft_strlen(const char *s);
 size_t		min_len(size_t a, size_t b);
 void		ft_putstrn(char *s, size_t buffer);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 int	print_str(char *str, const char *ptr)
 {
@@ -53,10 +54,10 @@ static int	put_result(char *s, t_flags *flags)
 	output = space_length + flags->precision;
 	if (flags->left_align == 0)
 		while (space_length-- > 0)
-			write(1, " ", 1);
+			ft_write_printf(" ", 1);
 	ft_putstrn(s, flags->precision);
 	if (flags->left_align == 1)
 		while (space_length-- > 0)
-			write(1, " ", 1);
+			ft_write_printf(" ", 1);
 	return (output);
 }

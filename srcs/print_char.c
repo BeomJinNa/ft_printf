@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 05:26:20 by bena              #+#    #+#             */
-/*   Updated: 2023/02/19 06:54:33 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:15:01 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int			ft_atoi(const char *str);
 void		set_flags(const char c, t_flags *flags);
 int			is_flag_character(const char c);
 static int	put_result(char c, t_flags *flags);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 int	print_char(char c, const char *ptr)
 {
@@ -39,11 +40,11 @@ static int	put_result(char c, t_flags *flags)
 	output = (flags->width)--;
 	if (flags->left_align == 0)
 		while ((flags->width)-- > 0)
-			write(1, " ", 1);
-	write(1, &c, 1);
+			ft_write_printf(" ", 1);
+	ft_write_printf(&c, 1);
 	if (flags->left_align == 1)
 		while ((flags->width)-- > 0)
-			write(1, " ", 1);
+			ft_write_printf(" ", 1);
 	if (output < 1)
 		return (1);
 	return (output);

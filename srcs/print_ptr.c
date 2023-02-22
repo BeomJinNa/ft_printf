@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 23:14:30 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 12:07:17 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:15:49 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	print_address(void *address, t_flags *flags);
 size_t		digit_of_address(unsigned long long num);
 size_t		max_len(size_t a, size_t b);
 void		put_address(unsigned long long num);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 int	print_ptr(void *address, const char *ptr)
 {
@@ -42,11 +43,11 @@ static int	print_address(void *address, t_flags *flags)
 	space = max_len(length, flags->width) - length;
 	if (flags->left_align == 0)
 		while (space-- > 0)
-			write(1, " ", 1);
-	write(1, "0x", 2);
+			ft_write_printf(" ", 1);
+	ft_write_printf("0x", 2);
 	put_address((unsigned long long)address);
 	if (flags->left_align == 1)
 		while (space-- > 0)
-			write(1, " ", 1);
+			ft_write_printf(" ", 1);
 	return (max_len(length, flags->width));
 }

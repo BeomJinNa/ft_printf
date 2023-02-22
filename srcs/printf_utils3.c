@@ -6,7 +6,7 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:38:06 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 11:29:05 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 08:03:10 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,21 @@ size_t	digit_of_address(unsigned long long num)
 		digit++;
 	}
 	return (digit);
+}
+
+ssize_t	ft_write_printf(const void *buf, size_t nbyte)
+{
+	static ssize_t	memory = 0;
+	ssize_t			output;
+
+	if (buf == NULL && nbyte == 0)
+	{
+		output = memory;
+		memory = 0;
+		return (output);
+	}
+	output = write(1, buf, nbyte);
+	if (memory >= 0)
+		memory = output;
+	return (output);
 }

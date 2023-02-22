@@ -6,13 +6,14 @@
 /*   By: bena <bena@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:04:46 by bena              #+#    #+#             */
-/*   Updated: 2023/02/22 03:32:18 by bena             ###   ########.fr       */
+/*   Updated: 2023/02/23 07:16:39 by bena             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
 static void	write_nbr(char *buffer, size_t buffer_len);
+ssize_t		ft_write_printf(const void *buf, size_t nbyte);
 
 void	put_address(unsigned long long num)
 {
@@ -40,5 +41,5 @@ static void	write_nbr(char *buffer, size_t buffer_len)
 	buffer += buffer_len;
 	while (buffer_len--)
 		*ptr++ = *--buffer;
-	write(1, str, ptr - str);
+	ft_write_printf(str, ptr - str);
 }
